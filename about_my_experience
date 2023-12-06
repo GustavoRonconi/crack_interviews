@@ -1,0 +1,87 @@
+
+Maybe at the end of the interview we can talk a little in Portuguese for me know you better, my vocabulary in English is very limited to work contexts.
+
+Atualmente
+
+I currently work as a software engineer manager at Olist, but recently I went through a horizontal change, 
+from principal engineer to engineer manager, but I think I want to spend more time as a developer, although I also like managing engineering teams
+
+Experiência
+
+Inicio
+
+    Eu iniciei minha carreira em tecnologia a 10 anos atrás, em uma grande empresa automobilística aqui do sul do brasil, 
+trabalhei com suporte e pequenos desenvolvimentos de ERP, quando finalizei minha graduação em engenharia elétrica decidi ir pra São Paulo me aventurar, 
+ai comecei a trabalhar como engenheiro de software em uma empresa de energia, 
+eu já era bom desenvolvedor python mas nessa empresa eu tive o meu primeiro contato com cloud e aprendi mais sobre infraestrutura e formas diferentes de rodar meu código em produção, 
+automatizei várias tarefas de deploy aprendi a fundo a cultura devops. O desafio nessa empresa era desenvolver um grande modelo de previsão de preço de energia.
+
+    I started my career in technology 10 years ago at a large automotive company here in the south of Brazil. 
+I worked in support and small ERP developments. After completing my degree in electrical engineering, I decided to venture to São Paulo. 
+There, I began working as a software engineer in an energy company. I was already a proficient Python developer, but in this company, 
+I had my first exposure to cloud technology. I learned more about infrastructure and different ways to run my code in production. 
+I automated various deployment tasks and delved deep into the DevOps culture.
+
+The business challenge at this company was to develop a large energy price forecasting model.
+
+Desafio -> Esfera
+
+    O mercado livre de energia no Brasil é muito semelhente ao mercado financeiro, só que a definição de preço de energia é mais previsível, 
+portanto é possível rodar modelos preditivos com base em dados meteorológicos por exemplo (sendo que grande parte da matriz energética do país é hídrica). 
+Esses modelos são disponibilizados pelo orgao regulador do país porem sem dados, 
+entao é necessário realizar toda a raspagem e tratamento dos dados vindos de diversas fontes para aplicar no modelo de cálculo, 
+é uma tarefa muito custosa computacionalmente e tivemos que pensar em como utilizar paralelismo para nos ajudar a cumprir o desafio de forma performática (sendo este um problema de CPU bound), 
+foi entao que optamos por processar pedaços dos dados separadamente e paralelizar o processamento, 
+para organizar esse fluxo de 'pedaços' utilizamos uma arquitetura de filas simples com o AWS SNS e SQS como broker e recursos serveless para o processamento paralelizado (AWS lambda functions), 
+todo esse processo precisava ser monitorado e rodar em menos de 3 horas, portanto desenvolvemos um teste automatizado que simulava o processo no dia anterior com os dados desatualizados para garantir a integridade do modelo. 
+Sempre que um deploy era realizado alem de rodar os testes unitários rodávamos esse teste de integração para nos certificar que o modelo continuava funcionando.
+
+    The free energy market in Brazil is very similar to financial market, but the energy price definition is more predictable, 
+so it is possible to run predictive models based on meteorological data for example (given that a large part of the country's energy matrix is hydro). 
+These models are provided by the country's regulatory body, but not the data, so it is necessary to scrape and process data from various sources to apply to the calculation model. 
+This is a computationally expensive task, and we had to think about how to use parallelism to help us meet the challenge in a performant way (as this is a CPU-bound problem). 
+We then chose to process chunks of data separately and parallelize the processing. 
+To organize this 'chunks' flow, we used a simple queue architecture with AWS SNS and SQS as the broker and serverless resources for parallelized processing (AWS Lambda functions). 
+This entire process needed to be monitored and run in less than 3 hours, so we developed an automated test that simulated the process the day before with outdated data to ensure the integrity of the model.
+Whenever a deployment was made, in addition to running unit tests, we ran this integration test to make sure the model continued to function.
+
+Desafio -> Olist
+
+    Em 2021 depois de completar quase 2 anos na Esfera eu notei que estava estagnando do ponto de vista de aprendizado, já era um dos desenvolvedores mais experientes da empresa,
+foi ai então que decidi sair da zona de conforto e buscar novos desafios, recebi uma oportunidade de trabalhar na Olist, uma empresa do segmento de e-commerce, este seria o meu primeiro contato com os desafios relacionados a escala
+de aplicações web, a Olist é uma empresa que cresceu muito nos últimos anos e tem um volume de dados e usuários muito grande. Chegando lá fui alocado em um time responsável pelo contexto financeiro do Olist, o desafio era
+desenvolver um módulo financeiro (extrato, gráficos, informativos...) e uma plataforma de repasse de valores para os sellers da plataforma, basicamente era necessário interpretar eventos de pedidos e transformá-los
+em transações financeiras e por fim sumarizar essas transações financeiras de forma a compor um balanço de repasse, que deveria ser realizado 3 vezes ao mes. Arquitetura de pedidos já estava pronta e era toda baseada em eventos, 
+já utilizávamos o AWS SQS como broker de eventos e workers python rodando em containers no kubernetes para processar esses eventos, então foi necessário expandir essa arquitetura para o domínio financeiro, 
+o desafio era que o sistema de pedidos era muito complexo e tinha inúmeras regras de negócio, então o sistema de transações financeiras precisava
+ser capaz de interpretar essas regras de negócio e gerar as transações financeiras de forma correta, para isso utilizamos o padrão de projeto de software chamado de state machine, que é basicamente uma máquina de estados
+que é capaz de interpretar eventos e transitar entre estados, cada estado representa uma regra de negócio e cada transição representa uma ação que deve ser executada quando um evento é recebido, esse padrão de projeto
+ajudou a controlar o fluxo de creditos e débitos e aumentar a confiabilidade do sistema, pois era possível simular o fluxo de transações financeiras e validar se o sistema estava se comportando como esperado. Esse foi apenas
+um dos desafios que enfrentei na Olist, lá eu tive a oportunidade de aprender muito sobre arquitetura de sistemas e desenvolvimento de software em larga escala, aprendi muito sobre como escalar aplicações web e como
+desenvolver sistemas que são capazes de lidar com grandes volumes de dados e usuários.
+
+    In 2021, after almost 2 years at Esfera, I realized that I was stagnant from a learning point of view. I was already one of the most experienced developers in the company.
+It was then that I decided to leave my comfort zone and seek new challenges. I received the opportunity to work at Olist, an e-commerce company. This would be my first contact with the challenges related to the scale of web applications.
+Olist is a company that has grown a lot in recent years and has a very large volume of data and users. When I got there, I was allocated to a team responsible for Olist's financial context.
+The challenge was to develop a financial module (statement, graphics, information...) and a platform to simplify payments to sellers.
+Basically, it was necessary to interpret order events and transform them into financial transactions and finally summarize these financial transactions to compose a balance sheet, which had to be done 3 times a month.
+The order architecture was already ready and was entirely based on events.
+We were already using AWS SQS as an event broker and Python or Go workers running in containers on Kubernetes to process these events, so it was necessary to expand this architecture to the financial domain.
+The challenge was that the ordering system was very complex and had numerous business rules, so the financial transaction system needed to be able to interpret these business rules and generate the financial transactions correctly.
+For this, we used the software design pattern called state machine, which is basically a state machine capable of interpreting events and making transitions between states.
+Each state represents a business rule and each transition represents an action that must be executed when an event is received.
+This design pattern helped to control the flow of credits and debits and increase the reliability of the system, as it was possible to simulate the flow of financial transactions and validate whether the system was behaving as expected.
+This was just one of the challenges I faced at Olist.
+There I had the opportunity to learn a lot about systems architecture and large-scale software development.
+I learned a lot about how to scale web applications and how to develop systems capable of handling large volumes of data and users.
+
+
+Processing events asynchronously brings more guarantees and less risk of losing them due to temporary instability in the system.
+
+The state machine pattern is a great way to control the flow of events and make sure that the system is behaving as expected.
+
+The use of event brokers is a great way to decouple systems and make them more resilient.
+
+The use of serverless resources is a great way to reduce costs and increase the scalability of the system.
+
+The use of containers is a great way to make the system more portable and scalable.
